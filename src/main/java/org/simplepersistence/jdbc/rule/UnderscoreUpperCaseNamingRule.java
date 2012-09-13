@@ -1,7 +1,6 @@
-package org.simplepersistence.naming;
+package org.simplepersistence.jdbc.rule;
 
 import com.google.common.base.Joiner;
-import org.apache.commons.lang3.StringUtils;
 
 import java.lang.reflect.Field;
 

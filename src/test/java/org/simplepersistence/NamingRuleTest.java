@@ -2,15 +2,12 @@ package org.simplepersistence;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.simplepersistence.jdbc.rule.JdbcPersistenceProvider;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import static org.simplepersistence.utils.DatabaseTestUtils.newConnection;
-import static org.simplepersistence.utils.DatabaseTestUtils.queryFromDB;
-import static org.simplepersistence.utils.TestFactory.newEntityManager;
-import static org.simplepersistence.utils.TestFactory.newSchemaManager;
 import static com.google.common.base.Throwables.propagate;
 import static java.text.MessageFormat.format;
 import static org.hamcrest.CoreMatchers.is;
@@ -55,22 +52,23 @@ public class NamingRuleTest {
         }
     }
 
-    private EntityManager entityManager;
+    private ObjectManager entityManager;
     private Connection connection;
     private SchemaManager schemaManager;
 
     @Before
     public void initialize() {
-        connection = newConnection();
-        entityManager = newEntityManager();
-        schemaManager = newSchemaManager();
+        connection = TemporaryDatabaseStuff.newConnection();
+        PersistenceProvider persistenceProvider = new JdbcPersistenceProvider();
+        entityManager = persistenceProvider.getObjectManager();
+        schemaManager = persistenceProvider.getSchemaManager();
     }
 
     @Test
     public void defaultNamingRuleIsOK() throws SQLException {
         MyEntity myEntity = new MyEntity(20L, "John Doe", "Mary Jane");
         schemaManager.createModel(MyEntity.class);
-        entityManager.insert(myEntity);
+        entityManager.save(myEntity);
         ResultSet resultSet = queryTable("MY_ENTITY");
         assertTrue(resultSet.next());
         assertColumn(resultSet, "NAME", myEntity.getName());
@@ -79,18 +77,14 @@ public class NamingRuleTest {
     }
 
     private ResultSet queryTable(final String tableName) {
-        try {
-            return queryFromDB(connection, format("select * from {0}", tableName));
-        } catch (SQLException e) {
-            throw propagate(e);
-        }
+        return TemporaryDatabaseStuff.queryFromDB(connection, format("select * from {0}", tableName));
     }
 
     private void assertColumn(final ResultSet resultSet, final String columnName, final Object value) throws SQLException {
         Object found = resultSet.getObject(columnName);
-        if(value instanceof Number) {
+        if (value instanceof Number) {
             assertThat(found, is(Number.class));
-            assertThat(((Number) found).longValue(), is(((Number)value).longValue()));
+            assertThat(((Number) found).longValue(), is(((Number) value).longValue()));
         }
     }
 }

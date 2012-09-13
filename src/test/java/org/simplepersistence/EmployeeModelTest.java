@@ -2,27 +2,26 @@ package org.simplepersistence;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.simplepersistence.jdbc.rule.JdbcPersistenceProvider;
 import org.simplepersistence.testmodel.employee.PerformanceScore;
 
 import java.sql.Connection;
 import java.util.List;
 
 import static com.google.common.collect.Lists.newArrayList;
-import static org.simplepersistence.utils.DatabaseTestUtils.newConnection;
-import static org.simplepersistence.utils.TestFactory.newEntityManager;
-import static org.simplepersistence.utils.TestFactory.newSchemaManager;
 
 public class EmployeeModelTest {
 
-    private EntityManager entityManager;
+    private ObjectManager entityManager;
     private Connection connection;
     private SchemaManager schemaManager;
 
     @Before
     public void initialize() {
-        connection = newConnection();
-        entityManager = newEntityManager();
-        schemaManager = newSchemaManager();
+        connection = TemporaryDatabaseStuff.newConnection();
+        PersistenceProvider persistenceProvider = new JdbcPersistenceProvider();
+        entityManager = persistenceProvider.getObjectManager();
+        schemaManager = persistenceProvider.getSchemaManager();
     }
 
     @Test

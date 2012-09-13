@@ -1,4 +1,4 @@
-package org.simplepersistence.naming;
+package org.simplepersistence.jdbc.rule;
 
 import java.lang.reflect.Field;
 

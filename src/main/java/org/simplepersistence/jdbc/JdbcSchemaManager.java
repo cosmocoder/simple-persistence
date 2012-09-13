@@ -1,8 +1,8 @@
 package org.simplepersistence.jdbc;
 
 import org.simplepersistence.SchemaManager;
-import org.simplepersistence.naming.EntityNamingRule;
-import org.simplepersistence.naming.PropertyNamingRule;
+import org.simplepersistence.jdbc.rule.EntityNamingRule;
+import org.simplepersistence.jdbc.rule.PropertyNamingRule;
 import com.google.common.base.Joiner;
 import com.google.common.collect.ImmutableMap;
 
