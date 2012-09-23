@@ -7,7 +7,7 @@ import org.simplepersistence.SchemaManager;
 import org.simplepersistence.jdbc.JdbcMarshaller;
 import org.simplepersistence.jdbc.JdbcSchemaManager;
 
-import static org.simplepersistence.TemporaryDatabaseStuff.newConnection;
+import static org.simplepersistence.jdbc.JdbcUtils.newConnection;
 
 public class JdbcPersistenceProvider implements PersistenceProvider {
 

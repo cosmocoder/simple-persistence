@@ -11,7 +11,7 @@ import java.sql.Connection;
 import java.util.List;
 import java.util.Map;
 
-import static org.simplepersistence.TemporaryDatabaseStuff.executeAtDB;
+import static org.simplepersistence.jdbc.JdbcUtils.executeAtDB;
 import static com.google.common.collect.Lists.newArrayList;
 import static java.text.MessageFormat.format;
 

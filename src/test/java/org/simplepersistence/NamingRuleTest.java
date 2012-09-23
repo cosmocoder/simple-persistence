@@ -2,13 +2,13 @@ package org.simplepersistence;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.simplepersistence.jdbc.JdbcUtils;
 import org.simplepersistence.jdbc.rule.JdbcPersistenceProvider;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import static com.google.common.base.Throwables.propagate;
 import static java.text.MessageFormat.format;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
@@ -58,7 +58,7 @@ public class NamingRuleTest {
 
     @Before
     public void initialize() {
-        connection = TemporaryDatabaseStuff.newConnection();
+        connection = JdbcUtils.newConnection();
         PersistenceProvider persistenceProvider = new JdbcPersistenceProvider();
         entityManager = persistenceProvider.getObjectManager();
         schemaManager = persistenceProvider.getSchemaManager();
@@ -77,7 +77,7 @@ public class NamingRuleTest {
     }
 
     private ResultSet queryTable(final String tableName) {
-        return TemporaryDatabaseStuff.queryFromDB(connection, format("select * from {0}", tableName));
+        return JdbcUtils.queryFromDB(connection, format("select * from {0}", tableName));
     }
 
     private void assertColumn(final ResultSet resultSet, final String columnName, final Object value) throws SQLException {

@@ -13,7 +13,7 @@ import static com.google.common.base.Throwables.propagate;
 import static com.google.common.collect.Maps.newLinkedHashMap;
 import static java.text.MessageFormat.format;
 import static java.util.Collections.nCopies;
-import static org.simplepersistence.TemporaryDatabaseStuff.executeAtDB;
+import static org.simplepersistence.jdbc.JdbcUtils.executeAtDB;
 
 public class JdbcMarshaller implements PhysicalMarshaller {
 

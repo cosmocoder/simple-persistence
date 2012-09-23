@@ -2,6 +2,7 @@ package org.simplepersistence;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.simplepersistence.jdbc.JdbcUtils;
 import org.simplepersistence.jdbc.rule.JdbcPersistenceProvider;
 import org.simplepersistence.testmodel.employee.PerformanceScore;
 
@@ -18,7 +19,7 @@ public class EmployeeModelTest {
 
     @Before
     public void initialize() {
-        connection = TemporaryDatabaseStuff.newConnection();
+        connection = JdbcUtils.newConnection();
         PersistenceProvider persistenceProvider = new JdbcPersistenceProvider();
         entityManager = persistenceProvider.getObjectManager();
         schemaManager = persistenceProvider.getSchemaManager();

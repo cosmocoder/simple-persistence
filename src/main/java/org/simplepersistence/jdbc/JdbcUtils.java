@@ -1,11 +1,11 @@
-package org.simplepersistence;
+package org.simplepersistence.jdbc;
 
 import java.sql.*;
 import java.util.Arrays;
 
 import static com.google.common.base.Throwables.propagate;
 
-public class TemporaryDatabaseStuff {
+public class JdbcUtils {
     public static Connection newConnection() {
         try {
             Class.forName("org.hsqldb.jdbcDriver");
