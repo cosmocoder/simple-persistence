@@ -2,7 +2,7 @@ package org.simplepersistence;
 
 import static com.google.common.base.Preconditions.checkArgument;
 
-public class DefaultMemberAccessor<O, M> implements MemberAccessor<O, M> {
+public class DefaultMemberAccessor<O, M> implements MemberReader<O,M>, MemberWriter<O,M> {
     private final MemberReader<O, M> memberReader;
     private final MemberWriter<O, M> memberWriter;
     private transient final Class<M> memberType;
