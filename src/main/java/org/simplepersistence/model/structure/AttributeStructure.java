@@ -1,17 +1,16 @@
-package org.simplepersistence.erm.structure;
+package org.simplepersistence.model.structure;
 
-import org.simplepersistence.MemberAccessor;
+import org.simplepersistence.PropertyAccessor;
 
-public class AttributeStructure implements MemberStructure{
+public class AttributeStructure implements PropertyStructure {
     private final String name;
-    private final MemberAccessor accessor;
+    private final PropertyAccessor accessor;
     private final EntityStructure entityStructure;
 
-    public AttributeStructure(EntityStructure owner, String name, MemberAccessor accessor) {
+    AttributeStructure(EntityStructure owner, String name, PropertyAccessor accessor) {
         this.entityStructure = owner;
         this.name = name;
         this.accessor = accessor;
-        owner.addAttribute(this);
     }
 
     @Override
@@ -19,7 +18,7 @@ public class AttributeStructure implements MemberStructure{
         return name;
     }
 
-    public MemberAccessor getAccessor() {
+    public PropertyAccessor getAccessor() {
         return accessor;
     }
 

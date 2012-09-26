@@ -1,5 +1,5 @@
 package org.simplepersistence;
 
-public interface MemberWriter<Object> {
+public interface PropertyWriter<Object> {
     void setTo(Object object, Object value);
 }

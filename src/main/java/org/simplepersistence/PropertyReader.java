@@ -1,5 +1,5 @@
 package org.simplepersistence;
 
-public interface MemberReader {
+public interface PropertyReader {
     Object getFrom(Object object);
 }
