@@ -1,5 +1,5 @@
 package org.simplepersistence;
 
 public interface PropertyWriter<Object> {
-    void setTo(Object object, Object value);
+    void setValueToObject(Object object, Object value);
 }
