@@ -1,5 +1,7 @@
 package org.simplepersistence.model;
 
+import com.sun.deploy.association.Association;
+import org.simplepersistence.model.types.AssociationType;
 import org.simplepersistence.model.types.EntityType;
 import org.simplepersistence.model.types.PropertyType;
 
@@ -29,12 +31,12 @@ public class Entity {
         type.getAttribute(name).getAccessor().setValueToObject(object, value);
     }
 
-    public Collection<Entity> getRelatedEntities(String name) {
-        Object related = type.getRelationshipRole(name).getAccessor().getValueFromObject(object);
-        if(related instanceof Iterable) {
-            return context.getEntities((Iterable) related);
-        } //TODO: ARRAYS
-        return newHashSet(context.getEntity(related));
+    public Collection<Entity> getAssociation(String name) {
+        AssociationType associationType = type.getAssociation(name);
+        if(associationType.getAccessor().getValueFromObject(object) instanceof Iterable) {
+            return context.getEntities((Iterable) associationType);
+        }
+        return newHashSet(context.getEntity(associationType));
     }
 
     public Object getIdentifier() {

@@ -22,7 +22,7 @@ public class EntityType {
         this.attributes.put(attribute.getName(), attribute);
     }
     
-    void addRelationshipRole(AssociationType role) {
+    void addAssociation(AssociationType role) {
         this.relationshipRoles.put(role.getName(), role);
     }
 
@@ -34,7 +34,7 @@ public class EntityType {
         return attributes.get(name);
     }
 
-    public AssociationType getRelationshipRole(String name) {
+    public AssociationType getAssociation(String name) {
         return relationshipRoles.get(name);
     }
 

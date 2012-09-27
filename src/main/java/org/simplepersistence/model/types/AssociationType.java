@@ -6,19 +6,15 @@ public class AssociationType implements PropertyType {
     private final String name;
     private final Cardinality cardinality;
     private final PropertyAccessor accessor;
-    private RelationshipType relationship;
     private final EntityType entity;
+    private AssociationType reverseAssociation;
 
-    public AssociationType(EntityType ownerEntity, String roleName, Cardinality cardinality, PropertyAccessor accessor) {
+    public AssociationType(String name, EntityType entity, Cardinality cardinality, PropertyAccessor accessor) {
         this.accessor = accessor;
-        this.name = roleName;
+        this.name = name;
         this.cardinality = cardinality;
-        this.entity = ownerEntity;
-        this.entity.addRelationshipRole(this);
-    }
-
-    void setRelationship(final RelationshipType relationship) {
-        this.relationship = relationship;
+        this.entity = entity;
+        this.entity.addAssociation(this);
     }
 
     public String getName() {
@@ -33,7 +29,11 @@ public class AssociationType implements PropertyType {
         return accessor;
     }
 
-    public RelationshipType getRelationship() {
-        return relationship;
+    public AssociationType getReverseAssociation() {
+        return reverseAssociation;
+    }
+
+    void setReverseAssociation(AssociationType reverseAssociation) {
+        this.reverseAssociation = reverseAssociation;
     }
 }
