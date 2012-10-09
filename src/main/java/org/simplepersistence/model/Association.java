@@ -1,15 +1,23 @@
 package org.simplepersistence.model;
-
+import org.simplepersistence.model.types.AssociationMemberType;
 import org.simplepersistence.model.types.AssociationType;
 
-public class Association {
-    private final AssociationType type;
-    private final String name;
-    private final Entity entity;
+import java.util.Collection;
+import java.util.Map;
 
-    public Association(AssociationType type, String name, Entity entity) {
+import static java.util.Collections.singleton;
+
+public class Association {
+
+    private AssociationType type;
+    private Map<String,AssociationMember> members;
+
+    public Association(AssociationType type) {
         this.type = type;
-        this.name = name;
-        this.entity = entity;
     }
+
+    public AssociationMember getMember(String name) {
+        return members.get(name);
+    }
+
 }

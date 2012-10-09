@@ -11,8 +11,8 @@ import static com.google.common.collect.Sets.newHashSet;
 public class EntityType {
     private final Class clazz;
     private Map<String, AttributeType> attributes = newHashMap();
-    private Map<String, AssociationType> relationshipRoles = newHashMap();
-    private Set<PropertyType> identifierMembers = newHashSet();
+    private Map<String, AssociationMemberType> associations = newHashMap();
+    private Set<PropertyType> identifier = newHashSet();
 
     public EntityType(Class clazz) {
         this.clazz = clazz;
@@ -21,9 +21,17 @@ public class EntityType {
     void addAttribute(AttributeType attribute) {
         this.attributes.put(attribute.getName(), attribute);
     }
-    
-    void addAssociation(AssociationType role) {
-        this.relationshipRoles.put(role.getName(), role);
+
+    void addAssociation(AssociationMemberType role) {
+        this.associations.put(role.getName(), role);
+    }
+
+    void addProperty(PropertyType property) {
+        if (property instanceof AttributeType) {
+            addAttribute((AttributeType) property);
+        } else {
+            addAssociation((AssociationMemberType) property);
+        }
     }
 
     public Class getClazz() {
@@ -34,11 +42,20 @@ public class EntityType {
         return attributes.get(name);
     }
 
-    public AssociationType getAssociation(String name) {
-        return relationshipRoles.get(name);
+    public AssociationMemberType getAssociation(String name) {
+        return associations.get(name);
     }
 
-    public Set<PropertyType> getIdentifierMembers() {
-        return ImmutableSet.copyOf(identifierMembers);
+    public Set<PropertyType> getIdentifier() {
+        return ImmutableSet.copyOf(identifier);
     }
+
+    public Set<AttributeType> getAttributes() {
+        return ImmutableSet.copyOf(attributes.values());
+    }
+
+    public Set<AssociationMemberType> getAssociations() {
+        return ImmutableSet.copyOf(associations.values());
+    }
+
 }

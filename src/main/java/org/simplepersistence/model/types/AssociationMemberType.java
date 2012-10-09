@@ -2,14 +2,13 @@ package org.simplepersistence.model.types;
 
 import org.simplepersistence.PropertyAccessor;
 
-public class AssociationType implements PropertyType {
+public class AssociationMemberType implements PropertyType {
     private final String name;
     private final Cardinality cardinality;
     private final PropertyAccessor accessor;
     private final EntityType entity;
-    private AssociationType reverseAssociation;
 
-    public AssociationType(String name, EntityType entity, Cardinality cardinality, PropertyAccessor accessor) {
+    public AssociationMemberType(String name, EntityType entity, Cardinality cardinality, PropertyAccessor accessor) {
         this.accessor = accessor;
         this.name = name;
         this.cardinality = cardinality;
@@ -29,11 +28,4 @@ public class AssociationType implements PropertyType {
         return accessor;
     }
 
-    public AssociationType getReverseAssociation() {
-        return reverseAssociation;
-    }
-
-    void setReverseAssociation(AssociationType reverseAssociation) {
-        this.reverseAssociation = reverseAssociation;
-    }
 }
