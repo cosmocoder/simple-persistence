@@ -22,8 +22,8 @@ public class EntityType {
         this.attributes.put(attribute.getName(), attribute);
     }
 
-    void addAssociation(AssociationMemberType role) {
-        this.associations.put(role.getName(), role);
+    void addAssociation(AssociationMemberType association) {
+        this.associations.put(association.getName(), association);
     }
 
     void addProperty(PropertyType property) {

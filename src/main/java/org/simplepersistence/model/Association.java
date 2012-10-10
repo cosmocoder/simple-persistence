@@ -1,19 +1,24 @@
 package org.simplepersistence.model;
-import org.simplepersistence.model.types.AssociationMemberType;
+import com.google.common.base.Function;
+import com.google.common.collect.Maps;
 import org.simplepersistence.model.types.AssociationType;
 
-import java.util.Collection;
+import javax.annotation.Nullable;
 import java.util.Map;
-
-import static java.util.Collections.singleton;
 
 public class Association {
 
-    private AssociationType type;
-    private Map<String,AssociationMember> members;
+    private final AssociationType type;
+    private final Map<String,AssociationMember> members;
 
-    public Association(AssociationType type) {
+    public Association(AssociationType type, Iterable<AssociationMember> members) {
         this.type = type;
+        this.members = Maps.uniqueIndex(members,new Function<AssociationMember, String>() {
+            @Override
+            public String apply(AssociationMember input) {
+                return input.getType().getName();
+            }
+        });
     }
 
     public AssociationMember getMember(String name) {

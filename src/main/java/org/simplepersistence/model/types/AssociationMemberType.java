@@ -7,13 +7,16 @@ public class AssociationMemberType implements PropertyType {
     private final Cardinality cardinality;
     private final PropertyAccessor accessor;
     private final EntityType entity;
+    private final AssociationType association;
 
-    public AssociationMemberType(String name, EntityType entity, Cardinality cardinality, PropertyAccessor accessor) {
+    public AssociationMemberType(String name, EntityType entity, AssociationType association, Cardinality cardinality, PropertyAccessor accessor) {
         this.accessor = accessor;
         this.name = name;
         this.cardinality = cardinality;
         this.entity = entity;
+        this.association = association;
         this.entity.addAssociation(this);
+        this.association.addMember(this);
     }
 
     public String getName() {
